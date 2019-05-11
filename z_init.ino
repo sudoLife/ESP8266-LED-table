@@ -4,7 +4,7 @@ void setup() {
 	init_wifi();
 	init_leds();
 
-  delay(2000);
+	greet();
 
   // WE need a greeting function
   clear_board();
