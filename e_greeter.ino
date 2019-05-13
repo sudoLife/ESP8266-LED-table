@@ -1,10 +1,12 @@
 void greet()
 {
   uint8_t x, y;
+	
+	leds[ XYsafe(0, 0) ] = FOREGROUND;
 
 	for (x = 1; x < 3; x++) {
 		for (y = 2; y < 10; y++) { 
-			leds[ XYsafe(x,y) ] = FOREGROUND;
+			leds[ XYsafe(x, y) ] = FOREGROUND;
 		}
 	}
 
@@ -16,13 +18,13 @@ void greet()
 
 	for (x = 5; x < 7; x++) {
 		for (y = 2; y < 10; y++) {
-			leds[ XYsafe(x,y) ] = FOREGROUND;
+			leds[ XYsafe(x, y) ] = FOREGROUND;
 		}
 	}
 
 	for (x = 9; x < 11; x++) {
 		for (y = 2; y < 10; y++) {
-			leds[ XYsafe(x,y) ] = FOREGROUND;
+			leds[ XYsafe(x, y) ] = FOREGROUND;
 		}
 	}
 

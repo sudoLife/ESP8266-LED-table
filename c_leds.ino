@@ -47,7 +47,7 @@ uint16_t XY( uint8_t x, uint8_t y)
 	return i;
 }
 
-uint16_t XYsafe( uint8_t x, uint8_t y)
+uint16_t XYsafe( uint8_t y, uint8_t x)
 {
 	if( x >= kMatrixWidth) return -1;
 	if( y >= kMatrixHeight) return -1;

@@ -166,7 +166,7 @@ void game_loop(WiFiClient client)
 					Serial.print("Command: ");
 					Serial.print(command);
 					Serial.print("\n");
-					if (draw(command[2] - '1', command[0] - '1'))
+					if (draw(command[0] - '1', command[2] - '1'))
 					{
 						continue;
 					}
