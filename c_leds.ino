@@ -19,7 +19,7 @@ CRGB* const leds( leds_plus_safety_pixel + 1);
 
 void init_leds()
 {
-	FastLED.addLeds<CHIPSET, LED_PIN, COLOR_ORDER>(leds, NUM_LEDS).setCorrection(TypicalSMD5050);
+	FastLED.addLeds<CHIPSET, LED_PIN, COLOR_ORDER>(leds, NUM_LEDS).setCorrection(UncorrectedColor);
 	FastLED.setBrightness( BRIGHTNESS );
 	FastLED.setMaxPowerInMilliWatts(30000);
 }
