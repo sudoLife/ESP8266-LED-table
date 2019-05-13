@@ -1,8 +1,8 @@
+#define FOREGROUND CRGB::Green
+
 void greet()
 {
   uint8_t x, y;
-	
-	leds[ XYsafe(0, 0) ] = FOREGROUND;
 
 	for (x = 1; x < 3; x++) {
 		for (y = 2; y < 10; y++) { 
