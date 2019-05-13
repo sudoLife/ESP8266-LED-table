@@ -1,4 +1,5 @@
-#define FOREGROUND CRGB::Green
+#define FIRST_PLAYER CRGB::Green
+#define SECOND_PLAYER CRGB::Red
 #define BACKGROUND CRGB::DarkBlue
 
 
@@ -22,17 +23,17 @@ char draw(uint8_t x, uint8_t y)
   // First player
   if (!player) {
     for (counter = 0; counter < 4; counter++) {
-      leds[ XYsafe(x + counter, y + counter) ] = FOREGROUND;
+      leds[ XYsafe(x + counter, y + counter) ] = FIRST_PLAYER;
     }
   }
   // Second player
   else {
     x++;
     y++;
-    leds[ XYsafe(x, y) ] = FOREGROUND;
-    leds[ XYsafe(x + 1, y) ] = FOREGROUND;
-    leds[ XYsafe(x, y + 1) ] = FOREGROUND;
-    leds[ XYsafe(x + 1, y + 1) ] = FOREGROUND;
+    leds[ XYsafe(x, y) ] = SECOND_PLAYER;
+    leds[ XYsafe(x + 1, y) ] = SECOND_PLAYER;
+    leds[ XYsafe(x, y + 1) ] = SECOND_PLAYER;
+    leds[ XYsafe(x + 1, y + 1) ] = SECOND_PLAYER;
   }
 
   FastLED.show();
@@ -134,6 +135,75 @@ char is_deadlock()
   return 1;
 }
 
+void print_winner()
+{
+	if (!player) {
+		leds[ XYsafe(5, 1) ] = FIRST_PLAYER;
+		leds[ XYsafe(6, 1) ] = FIRST_PLAYER;
+		leds[ XYsafe(6, 2) ] = FIRST_PLAYER;
+		leds[ XYsafe(6, 3) ] = FIRST_PLAYER;
+		leds[ XYsafe(5, 4) ] = FIRST_PLAYER;
+		leds[ XYsafe(6, 4) ] = FIRST_PLAYER;
+		leds[ XYsafe(7, 4) ] = FIRST_PLAYER;
+		leds[ XYsafe(0, 6) ] = FIRST_PLAYER;
+		leds[ XYsafe(4, 6) ] = FIRST_PLAYER;
+		leds[ XYsafe(6, 6) ] = FIRST_PLAYER;
+		leds[ XYsafe(8, 6) ] = FIRST_PLAYER;
+		leds[ XYsafe(11, 6) ] = FIRST_PLAYER;
+		leds[ XYsafe(0, 7) ] = FIRST_PLAYER;
+		leds[ XYsafe(4, 7) ] = FIRST_PLAYER;
+		leds[ XYsafe(6, 7) ] = FIRST_PLAYER;
+		leds[ XYsafe(8, 7) ] = FIRST_PLAYER;
+		leds[ XYsafe(9, 7) ] = FIRST_PLAYER;
+		leds[ XYsafe(11, 7) ] = FIRST_PLAYER;
+		leds[ XYsafe(0, 8) ] = FIRST_PLAYER;
+		leds[ XYsafe(2, 8) ] = FIRST_PLAYER;
+		leds[ XYsafe(4, 8) ] = FIRST_PLAYER;
+		leds[ XYsafe(6, 8) ] = FIRST_PLAYER;
+		leds[ XYsafe(8, 8) ] = FIRST_PLAYER;
+		leds[ XYsafe(10, 8) ] = FIRST_PLAYER;
+		leds[ XYsafe(11, 8) ] = FIRST_PLAYER;
+		leds[ XYsafe(1, 9) ] = FIRST_PLAYER;
+		leds[ XYsafe(3, 9) ] = FIRST_PLAYER;
+		leds[ XYsafe(6, 9) ] = FIRST_PLAYER;
+		leds[ XYsafe(8, 9) ] = FIRST_PLAYER;
+		leds[ XYsafe(11, 9) ] = FIRST_PLAYER;
+	} else {
+		leds[ XYsafe(5, 1) ] = SECOND_PLAYER;
+		leds[ XYsafe(6, 1) ] = SECOND_PLAYER;
+		leds[ XYsafe(7, 2) ] = SECOND_PLAYER;
+		leds[ XYsafe(5, 3) ] = SECOND_PLAYER;
+		leds[ XYsafe(6, 3) ] = SECOND_PLAYER;
+		leds[ XYsafe(5, 4) ] = SECOND_PLAYER;
+		leds[ XYsafe(6, 4) ] = SECOND_PLAYER;
+		leds[ XYsafe(7, 4) ] = SECOND_PLAYER;
+		leds[ XYsafe(0, 6) ] = SECOND_PLAYER;
+		leds[ XYsafe(4, 6) ] = SECOND_PLAYER;
+		leds[ XYsafe(6, 6) ] = SECOND_PLAYER;
+		leds[ XYsafe(8, 6) ] = SECOND_PLAYER;
+		leds[ XYsafe(11, 6) ] = SECOND_PLAYER;
+		leds[ XYsafe(0, 7) ] = SECOND_PLAYER;
+		leds[ XYsafe(4, 7) ] = SECOND_PLAYER;
+		leds[ XYsafe(6, 7) ] = SECOND_PLAYER;
+		leds[ XYsafe(8, 7) ] = SECOND_PLAYER;
+		leds[ XYsafe(9, 7) ] = SECOND_PLAYER;
+		leds[ XYsafe(11, 7) ] = SECOND_PLAYER;
+		leds[ XYsafe(0, 8) ] = SECOND_PLAYER;
+		leds[ XYsafe(2, 8) ] = SECOND_PLAYER;
+		leds[ XYsafe(4, 8) ] = SECOND_PLAYER;
+		leds[ XYsafe(6, 8) ] = SECOND_PLAYER;
+		leds[ XYsafe(8, 8) ] = SECOND_PLAYER;
+		leds[ XYsafe(10, 8) ] = SECOND_PLAYER;
+		leds[ XYsafe(11, 8) ] = SECOND_PLAYER;
+		leds[ XYsafe(1, 9) ] = SECOND_PLAYER;
+		leds[ XYsafe(3, 9) ] = SECOND_PLAYER;
+		leds[ XYsafe(6, 9) ] = SECOND_PLAYER;
+		leds[ XYsafe(8, 9) ] = SECOND_PLAYER;
+		leds[ XYsafe(11, 9) ] = SECOND_PLAYER;
+	}
+	FastLED.show();
+}
+
 void clear_board()
 {
   uint16_t counter;
@@ -170,8 +240,14 @@ void game_loop(WiFiClient client)
 					{
 						continue;
 					}
-					if (is_winner() || is_deadlock()) {
+					if (is_winner()) {
 						// Should be a win screen here
+						clear_board();
+						print_winner();
+						return;
+					}
+
+					if (is_deadlock()) {
 						return;
 					}
 					Serial.print("player = ");
@@ -204,5 +280,6 @@ void game_init(WiFiClient client)
     }
   }
 
+	clear_board();
 	game_loop(client);
 }
