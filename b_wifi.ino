@@ -3,10 +3,10 @@
 #include <ESP8266WebServer.h>
 
 
-const char *ssid = "bless_gun_of_witch";
+const char *ssid = "your_ssid";
 
 // This shit must be at least 8 characters!!!
-const char *password = "toribbbb";
+const char *password = "your_password";
 
 WiFiServer server(80);
 
